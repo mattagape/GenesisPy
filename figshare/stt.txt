@@ -1,0 +1,26 @@
+# State Transition Table
+#
+# Lines starting with a # are comments
+#
+# 12 and 20 in the first line are time units. Most probably this will be years,
+# but it could be months, weeks, days or whatever you want. Just as long as you are consistent
+# with all config info.
+#
+# Do not have any entirely blank lines in this file.
+#
+occult symp 12 20 0.05
+occult symp 20 40 0.06
+occult treated 12 80 0.07
+normal cin1 12 80 0.2
+cin1 occult 12 80 0.3
+#
+#
+# The example below is simpler, and only defined for ages 20-80.
+# It has the advantage that the probability of staying in the
+# "normal" state is given explicitly, and you can see that
+# the total probabiilties (for ages 20-80) total exactly 1
+# (as they should).
+#
+#normal normal 20 80 0.6
+#normal cin1 20 80 0.3
+#normal occult 20 80 0.1

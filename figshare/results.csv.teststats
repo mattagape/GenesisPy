@@ -1,0 +1,6 @@
+ID,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,
+1,normal,normal,normal,cin1,cin1,cin1,cin1,cin1,normal,normal,cin1,cin1,cin1,cin1,cin1,occult,occult,occult,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,
+2,normal,normal,cin1,cin1,cin1,cin1,cin1,cin1,cin1,occult,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,
+3,normal,normal,cin1,normal,cin1,occult,occult,occult,occult,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,
+4,normal,cin1,cin1,cin1,cin1,occult,occult,occult,occult,occult,occult,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,symp,
+5,normal,normal,normal,normal,cin1,cin1,cin1,cin1,occult,occult,occult,occult,occult,occult,occult,occult,occult,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,treated,

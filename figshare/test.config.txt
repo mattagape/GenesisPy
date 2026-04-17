@@ -1,0 +1,9 @@
+# test.config.txt - config file for test suite.
+#
+startage:12
+stopage:80
+interval:2
+initialstate:cin1
+seedstring:All for one and one for all!
+#seedstring:USE_SYSTEM_CLOCK
+number:5

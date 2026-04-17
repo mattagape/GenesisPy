@@ -1,0 +1,7 @@
+# State Transition Table - file for test suite.
+#
+occult symp 12 20 0.05
+occult symp 20 40 0.06
+occult treated 12 80 0.07
+normal cin1 12 80 0.2
+cin1 occult 12 80 0.3
