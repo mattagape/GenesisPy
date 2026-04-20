@@ -26,11 +26,12 @@ class GenesisParser:
             for line in input:            
                 # Skip over comment lines (starting with '#').
                 if (re.match('#', line)):
-                    print (line, end='')
+                    # print (line, end='')
                     continue
                 
                 # Remove any '\n' or '\r' characters from line.
                 line = line.strip()
+                print(line)
 
                 # Skip over any empty lines.
 
@@ -45,9 +46,10 @@ class GenesisParser:
                 source = tup[0]
                 sink = tup[1]
                 prob_list = self.get_prob_list(source, sink)
-                #self.transition_dict
+                prob_list.append(transition_prob)
 
             print(f"Parsing of {stt_file} complete.")
+            return self.transition_dict
 
 
     def get_prob_list(self, source: str, sink: str) -> list:
@@ -59,11 +61,15 @@ class GenesisParser:
             a list of age-based triples
             (Each triple with start age, stop age, prob)        
         """
-        outer_dict = self.transition_dict
-        if ( outer_dict == {} ):
-            print("ERROR: dictionary is empty. Did you parse the stt?")
-            return None
+        #import pdb;pdb.set_trace()
 
+        outer_dict = self.transition_dict
+        
+        # The dict will be empty at first, so this next bit is wrong
+        #if ( outer_dict == {} ):
+        #    print("ERROR: dictionary is empty. Did you parse the stt?")
+        #    return None
+        
         if source not in outer_dict:
             outer_dict[source] = dict()
         inner_dict = outer_dict[source]
