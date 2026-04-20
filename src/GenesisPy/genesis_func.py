@@ -8,7 +8,7 @@ class GenesisParser:
 
     def __init__(self):
 
-        """Dictionary of """
+        """Dictionary of state transitions """
         self.transition_dict = {}
 
     def parse_stt(self, stt_file: str) -> dict:
@@ -60,6 +60,10 @@ class GenesisParser:
             (Each triple with start age, stop age, prob)        
         """
         outer_dict = self.transition_dict
+        if ( outer_dict == {} ):
+            print("ERROR: dictionary is empty. Did you parse the stt?")
+            return None
+
         if source not in outer_dict:
             outer_dict[source] = dict()
         inner_dict = outer_dict[source]
@@ -70,5 +74,5 @@ class GenesisParser:
 
 # Sanity check
 if __name__ == "__main__":
-    GF = GenesisFunc()
-    GF.parse_stt("../../figshare/stt.txt")
+    GP = GenesisParser()
+    GP.parse_stt("../../figshare/stt.txt")
