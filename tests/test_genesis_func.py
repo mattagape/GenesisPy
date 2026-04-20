@@ -21,3 +21,15 @@ def test_normal_stt_parse():
     outer_keys = sorted(test_dict.keys())
     assert outer_keys == ["cin1", "normal", "occult"]
 
+    # Each list should have one tuple only:
+    assert test_dict["cin1"]["occult"] == [("12", "80", "0.3")]
+    assert test_dict["normal"]["cin1"] == [("12", "80", "0.2")]
+    assert test_dict["occult"]["treated"] == [("12", "80", "0.07")]
+
+    # We expect a list of 2 tuples next
+    my_list = test_dict["occult"]["symp"]
+    assert len(my_list) == 2
+    possibility_1 = [("12", "20", "0.05"), ("20", "40", "0.06")]
+    possibility_2 = [("20", "40", "0.06"), ("12", "20", "0.05")]
+    assert my_list == (possibility_1 or possibility_2)
+
