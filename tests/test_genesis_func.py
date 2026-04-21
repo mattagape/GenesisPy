@@ -6,13 +6,13 @@ from GenesisPy import genesis_func
 def test_get_empty_prob_list():
     GP = genesis_func.GenesisParser()
     mylist = GP.get_prob_list("a_source", "a_sink")
-    assert mylist is None
+    assert mylist == [] # As there won't be a list for this transition.
 
 
 def test_missing_file():
     GP = genesis_func.GenesisParser()
-    with pytest.raises(FileNotFoundError): # as err:
-        GP.parse_stt("missing_file.txt")
+    with pytest.raises(FileNotFoundError):
+        GP.parse_stt("tests/missing_file.txt")
 
 
 def test_normal_stt_parse():
@@ -32,4 +32,12 @@ def test_normal_stt_parse():
     possibility_1 = [("12", "20", "0.05"), ("20", "40", "0.06")]
     possibility_2 = [("20", "40", "0.06"), ("12", "20", "0.05")]
     assert my_list == (possibility_1 or possibility_2)
+
+
+def test_empty_file():
+    GP = genesis_func.GenesisParser()
+    mydict = GP.parse_stt("tests/empty_file.txt")
+    assert mydict == {}
+    mylist = GP.get_prob_list("", "")
+    assert mylist == []
 
