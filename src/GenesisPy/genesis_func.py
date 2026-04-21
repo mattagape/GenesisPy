@@ -78,6 +78,12 @@ class GenesisParser:
         return outer_dict[source][sink]
 
 
+    def check_transitions(self):
+        """Check there are no overlapping age states, etc."""
+        pass
+
+
+
 # Sanity check
 if __name__ == "__main__":
     GP = GenesisParser()

@@ -1,0 +1,6 @@
+# State Transition Table - file for test suite.
+#
+# Same transition twice, but with different probs.
+occult symp 12 20 0.05
+occult symp 12 20 0.09
+# Should be picked up in checking function

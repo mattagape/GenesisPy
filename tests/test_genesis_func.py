@@ -41,3 +41,16 @@ def test_empty_file():
     mylist = GP.get_prob_list("", "")
     assert mylist == []
 
+
+def test_duplicate_lines():
+    # Need a transition checking function to catch this sort of thing.
+    # Like in the Perl version. 
+    #GP = genesis_func.GenesisParser()
+    #test_dict = GP.parse_stt("tests/stt_dup_lines.txt")
+    #outer_keys = sorted(test_dict.keys())
+    #assert outer_keys == ["occult"]
+    #inner_dict = test_dict["occult"]
+    #inner_keys = sorted(inner_dict.keys())
+    #assert inner_keys == ["symp"]
+    #assert test_dict["occult"]["symp"] == [("12", "20", "0.09")]
+    pass
