@@ -31,9 +31,12 @@ class GenesisParser:
                 
                 # Remove any '\n' or '\r' characters from line.
                 line = line.strip()
-                print(line)
+                #print(line)
 
                 # Skip over any empty lines.
+                if (line == ""):
+                    #print ("skipped empty line!")
+                    continue
 
                 # Parse a data line into a tuple, e.g.:
                 # ('occult', 'symp', '20', '40', '0.06')
@@ -43,6 +46,8 @@ class GenesisParser:
                     print("Parsing error on line ___")
                     return None
                 transition_prob = tuple(tup[2:])
+                if (self.bad_tuple(transition_prob)):
+                    raise SystemExit
                 source = tup[0]
                 sink = tup[1]
                 prob_list = self.get_prob_list(source, sink)
@@ -50,6 +55,30 @@ class GenesisParser:
 
             print(f"Parsing of {stt_file} complete.")
             return self.transition_dict
+
+
+    def bad_tuple(self, tup: tuple) -> bool:
+        """Returns True if error in tuple, tup.
+
+        Tuple contains 3 strings, e.g. ("20", "40", "0.05")
+        where the start age of this transition would be 20, the 
+        stop age (just under) 40, and probability of 0.05.
+        
+        Reporting the line number would be helpful TODO 
+        """
+        if ( tup is None ):
+            print ("Null tuple!")
+            return True
+        start = tup[0]
+        end = tup[1]
+        start_age = float(start)
+        end_age = float(end)
+        if ( start_age < 0 ):
+            print("Error: start age < 0!!")
+            return True
+        if ( start_age > end_age ):
+            print("Error: start age > end age!!")
+            return True
 
 
     def get_prob_list(self, source: str, sink: str) -> list:
@@ -79,12 +108,12 @@ class GenesisParser:
 
 
     def check_transitions(self):
-        """Check there are no overlapping age states, etc."""
+        """Check there are no overlapping or duplicate age states, etc."""
         pass
 
 
 
-# Sanity check
+# Sanity check - call from same directory this file is in.
 if __name__ == "__main__":
     GP = GenesisParser()
     GP.parse_stt("../../figshare/stt.txt")

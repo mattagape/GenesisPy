@@ -3,6 +3,8 @@ from GenesisPy import genesis_func
 
 # Assumes pytest is called from top-level directory.
 
+# Add set-up func here for: GP = genesis_func.GenesisParser()
+
 def test_get_empty_prob_list():
     GP = genesis_func.GenesisParser()
     mylist = GP.get_prob_list("a_source", "a_sink")
@@ -54,3 +56,14 @@ def test_duplicate_lines():
     #assert inner_keys == ["symp"]
     #assert test_dict["occult"]["symp"] == [("12", "20", "0.09")]
     pass
+
+
+# https://realpython.com/pytest-python-testing/#parametrization-combining-tests
+@pytest.mark.parametrize("tup", [
+   ("40", "20", "0.06"),
+   ("-27", "40", "0.05"),
+   # ("20", "40", "0.06"),  # use this to check failure
+])
+def test_bad_tuple(tup: tuple):
+    GP = genesis_func.GenesisParser()
+    assert GP.bad_tuple(tup)
