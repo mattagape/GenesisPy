@@ -5,21 +5,29 @@ from GenesisPy import genesis_func
 
 # Add set-up func here for: GP = genesis_func.GenesisParser()
 
-def test_get_empty_prob_list():
+#GP = None
+
+@pytest.fixture
+def fresh_GP():
+    """Ensure fresh instantiation of GenesisParser class.
+    """
     GP = genesis_func.GenesisParser()
-    mylist = GP.get_prob_list("a_source", "a_sink")
+    yield GP
+    #return GP
+
+
+def test_get_empty_prob_list(fresh_GP):
+    mylist = fresh_GP.get_prob_list("a_source", "a_sink")
     assert mylist == [] # As there won't be a list for this transition.
 
 
-def test_missing_file():
-    GP = genesis_func.GenesisParser()
+def test_missing_file(fresh_GP):
     with pytest.raises(FileNotFoundError):
-        GP.parse_stt("tests/missing_file.txt")
+        fresh_GP.parse_stt("tests/missing_file.txt")
 
 
-def test_normal_stt_parse():
-    GP = genesis_func.GenesisParser()
-    test_dict = GP.parse_stt("tests/sample_stt.txt")
+def test_normal_stt_parse(fresh_GP):
+    test_dict = fresh_GP.parse_stt("tests/sample_stt.txt")
     outer_keys = sorted(test_dict.keys())
     assert outer_keys == ["cin1", "normal", "occult"]
 
@@ -65,6 +73,6 @@ def test_duplicate_lines():
    ("-27", "40", "0.05"),
    # ("20", "40", "0.06"),  # Use this "good" tuple to check failure of this test!
 ])
-def test_bad_tuple(tup: tuple):
-    GP = genesis_func.GenesisParser()
-    assert GP.bad_tuple(tup)
+def test_bad_tuple(fresh_GP, tup: tuple):
+    #GP = genesis_func.GenesisParser()
+    assert fresh_GP.bad_tuple(tup)
