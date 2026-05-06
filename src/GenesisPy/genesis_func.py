@@ -4,12 +4,22 @@ import re
 
 
 class GenesisParser:
-    """Contains methods to be used by Genesis. Adapted from GenesisFunc.pl."""
+    """Contains methods to be used by Genesis. Adapted from GenesisFunc.pm."""
 
     def __init__(self):
 
-        """Dictionary of state transitions """
+        """Dictionary of state transitions 
+        
+        Example usage:
+        
+        transition_dict["occult"]["symp"] =  [("12", "20", "0.05"), ("20", "40", "0.06")]
+
+        i.e., 
+        transition_dict[a_source][one_of_its_sinks] = list of tuples of (start, end, prob)
+        """
         self.transition_dict = {}
+
+        self.all_states = {}
 
     def parse_stt(self, stt_file: str) -> dict:
         """Parse state transition table file and update data structures.
@@ -23,7 +33,12 @@ class GenesisParser:
         # Open the file and read it in a line at a time:
         with open(stt_file, encoding="utf-8") as input:
 
-            for line in input:            
+            line_num = 0
+
+            for line in input: 
+
+                line_num += 1
+
                 # Skip over comment lines (starting with '#').
                 if (re.match('#', line)):
                     # print (line, end='')
@@ -43,15 +58,23 @@ class GenesisParser:
                 tup = tuple(line.split())
                 if ( len(tup) != 5 ):
                     # TODO raise custom error
-                    print("Parsing error on line ___")
+                    print(f"Parsing error on line {line_num}.")
                     return None
-                transition_prob = tuple(tup[2:])
-                if (self.bad_tuple(transition_prob)):
+                transition_prob_tuple = tuple(tup[2:])
+                if (self.bad_tuple(transition_prob_tuple)):
                     raise SystemExit
                 source = tup[0]
                 sink = tup[1]
                 prob_list = self.get_prob_list(source, sink)
-                prob_list.append(transition_prob)
+                prob_list.append(transition_prob_tuple)
+
+                # Update our dict of ALL states:
+                if source not in self.all_states:
+                    self.all_states[source] = 0
+                if sink not in self.all_states:
+                    self.all_states[sink] = 0
+                # self.all_states[source] += 1
+                # self.all_states[sink] += 1
 
             print(f"Parsing of {stt_file} complete.")
             return self.transition_dict
@@ -82,12 +105,12 @@ class GenesisParser:
 
 
     def get_prob_list(self, source: str, sink: str) -> list:
-        """Get the relevant list of state transitions for this source/sink pair.
+        """Get the relevant list of state transition tuples for this source/sink pair.
            
             A source state may well have multiple sink states.
             "Outer" key is the name of a source state. Value = "inner" dictionary
             Inner dict key is the name of a sink state, with value = 
-            a list of age-based triples
+                a list of age-based triples
             (Each triple with start age, stop age, prob)        
         """
         #import pdb;pdb.set_trace()
@@ -104,6 +127,7 @@ class GenesisParser:
         inner_dict = outer_dict[source]
         if sink not in inner_dict:
             inner_dict[sink] = list()
+
         return outer_dict[source][sink]
 
 
@@ -111,9 +135,20 @@ class GenesisParser:
         """Check there are no overlapping or duplicate age states, etc."""
         pass
 
+# Still need functions to : 
+#
+# - check_transitions() no overlapping age ranges, > 1 prob triple of 
+#       same age range for same state source-sink pair
+#
+# Put these 3 in "writer" class:
+# - generate C++ header "myclasses.h"
+# - generate_impl "myclasses.cpp"
+# - generate_main() - parse config and generate simulation.cpp 
+#
+# Also need "invoker" script:
+# python genesis.py --stt "../../mystt.txt" --config "myconfig.txt" --outdir "./out/cpp"
 
-
-# Sanity check - call from same directory this file is in.
+# Sanity check. Call from same directory this file is in.
 if __name__ == "__main__":
     GP = GenesisParser()
     GP.parse_stt("../../figshare/stt.txt")
