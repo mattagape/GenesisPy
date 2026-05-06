@@ -28,7 +28,7 @@ def test_normal_stt_parse():
     assert test_dict["normal"]["cin1"] == [("12", "80", "0.2")]
     assert test_dict["occult"]["treated"] == [("12", "80", "0.07")]
 
-    # We expect a list of 2 tuples next
+    # We expect a list of 2 tuples next:
     my_list = test_dict["occult"]["symp"]
     assert len(my_list) == 2
     possibility_1 = [("12", "20", "0.05"), ("20", "40", "0.06")]
@@ -47,6 +47,7 @@ def test_empty_file():
 def test_duplicate_lines():
     # Need a transition checking function to catch this sort of thing.
     # Like in the Perl version. 
+    # TODO Implement GenesisParser.check_transitions() function
     #GP = genesis_func.GenesisParser()
     #test_dict = GP.parse_stt("tests/stt_dup_lines.txt")
     #outer_keys = sorted(test_dict.keys())
@@ -62,7 +63,7 @@ def test_duplicate_lines():
 @pytest.mark.parametrize("tup", [
    ("40", "20", "0.06"),
    ("-27", "40", "0.05"),
-   # ("20", "40", "0.06"),  # use this to check failure
+   # ("20", "40", "0.06"),  # Use this "good" tuple to check failure of this test!
 ])
 def test_bad_tuple(tup: tuple):
     GP = genesis_func.GenesisParser()

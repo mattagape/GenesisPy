@@ -21,6 +21,6 @@ cin1 occult 12 80 0.3
 # the total probabiilties (for ages 20-80) total exactly 1
 # (as they should). NB potential rounding errors if doing this in code!
 #
-#normal normal 20 80 0.6
-#normal cin1 20 80 0.3
-#normal occult 20 80 0.1
+# normal normal 20 80 0.6
+# normal cin1 20 80 0.3
+# normal occult 20 80 0.1

@@ -1,4 +1,4 @@
-# test.config.txt - config file for test suite.
+# sample_config.txt - config file for test suite.
 #
 startage:12
 stopage:80
