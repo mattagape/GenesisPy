@@ -4,7 +4,8 @@ import re
 
 
 class GenesisParser:
-    """Contains methods to be used by Genesis. Adapted from GenesisFunc.pm."""
+    """ Contains parsing, etc., methods to be used by Genesis. 
+        Adapted from GenesisFunc.pm."""
 
     def __init__(self):
 

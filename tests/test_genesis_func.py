@@ -1,9 +1,9 @@
 import pytest
-from GenesisPy import genesis_func
+from GenesisPy import genesis_parser
 
 # Assumes pytest is called from top-level directory.
 
-# Add set-up func here for: GP = genesis_func.GenesisParser()
+# Add set-up func here for: GP = genesis_parser.GenesisParser()
 
 #GP = None
 
@@ -11,7 +11,7 @@ from GenesisPy import genesis_func
 def fresh_GP():
     """Ensure fresh instantiation of GenesisParser class.
     """
-    GP = genesis_func.GenesisParser()
+    GP = genesis_parser.GenesisParser()
     yield GP
     #return GP
 
@@ -45,7 +45,7 @@ def test_normal_stt_parse(fresh_GP):
 
 
 def test_empty_file():
-    GP = genesis_func.GenesisParser()
+    GP = genesis_parser.GenesisParser()
     mydict = GP.parse_stt("tests/empty_file.txt")
     assert mydict == {}
     mylist = GP.get_prob_list("", "")
@@ -56,7 +56,7 @@ def test_duplicate_lines():
     # Need a transition checking function to catch this sort of thing.
     # Like in the Perl version. 
     # TODO Implement GenesisParser.check_transitions() function
-    #GP = genesis_func.GenesisParser()
+    #GP = genesis_parser.GenesisParser()
     #test_dict = GP.parse_stt("tests/stt_dup_lines.txt")
     #outer_keys = sorted(test_dict.keys())
     #assert outer_keys == ["occult"]
@@ -74,5 +74,5 @@ def test_duplicate_lines():
    # ("20", "40", "0.06"),  # Use this "good" tuple to check failure of this test!
 ])
 def test_bad_tuple(fresh_GP, tup: tuple):
-    #GP = genesis_func.GenesisParser()
+    #GP = genesis_parser.GenesisParser()
     assert fresh_GP.bad_tuple(tup)
